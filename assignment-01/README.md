@@ -1,134 +1,430 @@
-<div align="center">
+📱 User Directory Dashboard
+A modern, production-ready user directory application built with React, Redux Toolkit, React Router, and Tailwind CSS v4. This project demonstrates state management, API integration, routing, and advanced features like favorites and theme switching.
 
-# 🚀 User Directory Dashboard
+✨ Features
+Core Requirements
+✅ API Integration - Fetch paginated user data from ReqRes API
 
-### A Modern React + Redux Application
+✅ User List Display - Show user photo, name, and email in grid layout
 
-[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
-[![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-2.2.1-764ABC?style=for-the-badge&logo=redux&logoColor=white)](https://redux-toolkit.js.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Vite](https://img.shields.io/badge/Vite-5.1.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+✅ Pagination - Previous/Next controls with page indicators
 
-[Demo](#) · [Report Bug](#) · [Request Feature](#)
+✅ User Detail View - Modal with detailed user information
 
-</div>
+✅ Search/Filter - Filter users by name or email
 
----
+✅ Loading States - Animated spinner during data fetch
 
-## 📋 Table of Contents
+✅ Error Handling - User-friendly error messages
 
-- [About The Project](#about-the-project)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Folder Structure](#folder-structure)
-- [Usage](#usage)
-- [Redux State Management](#redux-state-management)
-- [API Reference](#api-reference)
-- [Screenshots](#screenshots)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
+Redux Implementation
+✅ Redux Toolkit - Modern Redux with createSlice and createAsyncThunk
 
----
+✅ State Management - Users list, selected user, loading, error, pagination
 
-## 🎯 About The Project
+✅ Async Thunks - API calls with proper loading/error handling
 
-A production-ready user directory application built as part of a React Redux internship assignment. This project demonstrates modern React development practices, state management with Redux Toolkit, API integration, routing, and advanced features like theme switching and favorites management.
+✅ Actions - Fetch users, select user, toggle favorites
 
-### ✨ Key Highlights
+Bonus Features
+⭐ Favorites with localStorage - Mark/unmark users as favorites (persists across sessions)
 
-- 🔄 **Redux Toolkit** - Modern state management with slices and async thunks
-- 📱 **Fully Responsive** - Mobile-first design that works on all devices
-- 🌓 **Dark Mode** - System-aware theme with manual toggle
-- ⭐ **Favorites** - Persistent favorites using localStorage
-- 🚀 **Fast** - Built with Vite for lightning-fast development
-- ♿ **Accessible** - WCAG compliant with ARIA labels and keyboard navigation
+⭐ Dark/Light Theme Toggle - Redux-managed theme with localStorage persistence
 
----
+⭐ React Router - Individual user pages at /users/:id
 
-## ✨ Features
+Additional Enhancements
+📱 Fully Responsive - Mobile-first design, works on all devices
 
-### Core Features
+🎨 Modern UI/UX - Clean design with smooth animations and transitions
 
-✅ **User List Display**
-- Fetch and display paginated users from external API
-- Grid layout with user avatar, name, and email
-- Loading states with animated spinner
-- Error handling with user-friendly messages
+♿ Accessible - ARIA labels, keyboard navigation, focus states
 
-✅ **Pagination Controls**
-- Navigate between pages with Previous/Next buttons
-- Display current page and total pages
-- Disabled states for first/last pages
+⚡ Optimized Performance - Efficient state updates and component rendering
 
-✅ **User Detail View**
-- Click user card to view detailed information
-- Modal overlay with smooth animations
-- Close button and click-outside-to-close
+🌙 System Theme Detection - Respects user's OS theme preference
 
-✅ **Search & Filter** _(Optional)_
-- Real-time search by name or email
-- Instant filtering results
+🏗️ Folder Structure
+text
+user-directory-app/
+│
+├── public/                     # Public assets
+│
+├── src/                        # Source code
+│   │
+│   ├── api/                    # API service layer
+│   │   └── usersApi.js        # User API calls (fetch users)
+│   │
+│   ├── app/                    # Redux store configuration
+│   │   └── store.js           # Redux store setup with combined reducers
+│   │
+│   ├── features/               # Redux slices (feature-based organization)
+│   │   ├── usersSlice.js      # Users state: list, pagination, selected, favorites
+│   │   └── themeSlice.js      # Theme state: light/dark mode
+│   │
+│   ├── components/             # React components
+│   │   ├── UsersList.js       # Main user list with grid layout & pagination
+│   │   ├── UsersDetail.js     # User detail modal (overlay)
+│   │   ├── UserPage.js        # Individual user page (React Router)
+│   │   └── ThemeToggle.js     # Theme toggle button (sun/moon icons)
+│   │
+│   ├── App.jsx                 # Main app component (routes, theme logic)
+│   ├── main.jsx               # Entry point (renders app to DOM)
+│   └── index.css              # Global styles, Tailwind imports, animations
+│
+├── .gitignore                  # Git ignore rules
+├── package.json               # Dependencies and scripts
+├── tailwind.config.js         # Tailwind CSS configuration
+├── postcss.config.js          # PostCSS configuration
+├── vite.config.js             # Vite build configuration
+└── README.md                  # This file
+📋 Detailed File Descriptions
+API Layer
+text
+src/api/usersApi.js
+Handles all API calls to ReqRes API
 
-### Bonus Features
+Exports fetchUsers(page) function
 
-⭐ **Favorites with localStorage**
-- Mark/unmark users as favorites
-- Persist across browser sessions
-- Visual indicator (heart icon) on cards
+Returns JSON response with user data
 
-⭐ **Dark/Light Theme Toggle**
-- Redux-managed theme state
-- Smooth color transitions
-- Persists in localStorage
-- System theme detection
+Redux Store
+text
+src/app/store.js
+Configures Redux store using configureStore
 
-⭐ **React Router Integration**
-- Individual user pages at `/users/:id`
-- Browser history support
-- Deep linking capability
+Combines usersReducer and themeReducer
 
-### Additional Enhancements
+Enables Redux DevTools for debugging
 
-- 🎨 Modern UI with Tailwind CSS
-- 🔄 Optimized re-renders with Redux selectors
-- 📊 Clean separation of concerns
-- 🛡️ Type-safe Redux with TypeScript-ready structure
-- 🎭 Smooth animations and transitions
+Redux Slices
+src/features/usersSlice.js
+State:
 
----
+users - Array of user objects from API
 
-## 🛠️ Tech Stack
+page - Current page number (default: 1)
 
-**Frontend:**
-- [React 18](https://reactjs.org/) - UI Library
-- [Redux Toolkit](https://redux-toolkit.js.org/) - State Management
-- [React Router v6](https://reactrouter.com/) - Routing
-- [Tailwind CSS v4](https://tailwindcss.com/) - Styling
+totalPages - Total available pages
 
-**Build Tools:**
-- [Vite](https://vitejs.dev/) - Build Tool & Dev Server
-- [PostCSS](https://postcss.org/) - CSS Processing
-- [Autoprefixer](https://github.com/postcss/autoprefixer) - CSS Vendor Prefixes
+loading - Boolean for loading state
 
-**API:**
-- [ReqRes API](https://reqres.in/) - Mock REST API
+error - Error message string (null if no error)
 
----
+selectedUser - Currently selected user object for modal
 
-## 🚀 Getting Started
+favorites - Array of favorite user IDs (persists in localStorage)
 
-### Prerequisites
+Actions:
 
-Before you begin, ensure you have the following installed:
-- **Node.js** (v16 or higher) - [Download](https://nodejs.org/)
-- **npm** (v7 or higher) or **yarn** or **pnpm**
+fetchUsersThunk - Async thunk to fetch users from API
 
-### Installation
+selectUser - Set selected user for modal
 
-1. **Clone the repository**
+clearSelectedUser - Clear selected user (close modal)
+
+toggleFavorite - Add/remove user from favorites
+
+Extra Reducers:
+
+pending - Set loading to true
+
+fulfilled - Update users, page, totalPages
+
+rejected - Set error message
+
+src/features/themeSlice.js
+State:
+
+mode - 'light' or 'dark' (loads from localStorage)
+
+Actions:
+
+toggleTheme - Switch between light/dark mode
+
+setTheme - Set specific theme mode
+
+Components
+src/components/UsersList.js
+Displays users in responsive grid (1/2/3 columns)
+
+Shows user avatar, name, email
+
+Favorite button on each card
+
+Handles pagination (Previous/Next buttons)
+
+Loading spinner and error states
+
+Navigates to user detail page on click
+
+src/components/UsersDetail.js
+Modal overlay with user details
+
+Shows enlarged avatar and full info
+
+Close button (X icon) and footer button
+
+Dark mode support
+
+Fade-in animation
+
+src/components/UserPage.js
+Individual user page (React Router)
+
+Accessible at /users/:id
+
+Shows user info with add/remove favorite button
+
+Back to list navigation
+
+Handles user not found case
+
+src/components/ThemeToggle.js
+Fixed position button (top-right corner)
+
+Moon icon for light mode, Sun icon for dark mode
+
+Dispatches toggleTheme action
+
+Smooth icon transitions
+
+Main Files
+src/App.jsx
+Main application component
+
+Sets up React Router with routes
+
+Applies theme class to <html> element
+
+Contains header and layout structure
+
+src/main.jsx
+Application entry point
+
+Wraps app with Redux <Provider>
+
+Renders to DOM using createRoot
+
+src/index.css
+Imports Tailwind CSS v4
+
+Defines dark mode custom variant
+
+Custom animations (fade-in)
+
+Global styles
+
+🚀 Getting Started
+Prerequisites
+Node.js v16 or higher
+
+npm v7 or higher (or yarn/pnpm)
+
+Installation
+Clone the repository
+
+bash
+git clone <your-repository-url>
+cd user-directory-app
+Install dependencies
+
+bash
+npm install
+Start development server
+
+bash
+npm run dev
+Open in browser
+
+text
+http://localhost:5173
+The app should now be running! 🎉
+
+📦 Available Scripts
+bash
+# Start development server (with hot reload)
+npm run dev
+
+# Build for production
+npm run build
+
+🌐 API Documentation
+Base URL: https://reqres.in/api
+
+Endpoints Used
+Get Users (Paginated)
+text
+GET /users?page={page_number}
+Response:
+
+json
+{
+  "page": 1,
+  "per_page": 6,
+  "total": 12,
+  "total_pages": 2,
+  "data": [
+    {
+      "id": 1,
+      "email": "george.bluth@reqres.in",
+      "first_name": "George",
+      "last_name": "Bluth",
+      "avatar": "https://reqres.in/img/faces/1-image.jpg"
+    }
+  ]
+}
+🗂️ State Management
+Redux State Structure
+javascript
+{
+  users: {
+    users: [],              // Array of user objects
+    page: 1,               // Current page number
+    totalPages: 1,         // Total pages from API
+    loading: false,        // Loading indicator
+    error: null,           // Error message (string or null)
+    selectedUser: null,    // Selected user for modal
+    favorites: []          // Array of favorite user IDs
+  },
+  theme: {
+    mode: 'light'          // 'light' or 'dark'
+  }
+}
+🎨 UI/UX Features
+Responsive Design
+Mobile (< 768px): Single column layout
+
+Tablet (768px - 1024px): 2 columns
+
+Desktop (> 1024px): 3 columns
+
+Dark Mode
+Toggle button in top-right corner
+
+Persists across sessions (localStorage)
+
+Smooth color transitions
+
+All components support dark mode
+
+Animations
+Fade-in modal animations
+
+Hover effects on cards (scale, shadow)
+
+Smooth theme transitions
+
+Loading spinner
+
+Accessibility
+ARIA labels on interactive elements
+
+Keyboard navigation support
+
+Focus visible states
+
+Semantic HTML structure
+
+🧪 Testing the Application
+Manual Testing Checklist
+User List
+ Users load on initial page load
+
+ Grid displays correctly on mobile/tablet/desktop
+
+ User avatars display properly
+
+ User names and emails are visible
+
+Pagination
+ Previous button disabled on first page
+
+ Next button disabled on last page
+
+ Page indicator shows correct page numbers
+
+ Clicking Next/Previous loads new users
+
+User Detail Modal
+ Clicking user card opens modal
+
+ Modal displays correct user info
+
+ Close button (X) closes modal
+
+ Footer close button works
+
+React Router
+ Clicking user navigates to /users/:id
+
+ URL updates correctly
+
+ Back button navigates to user list
+
+ Direct URL access works
+
+Favorites
+ Heart icon toggles between filled/empty
+
+ Favorites persist after page refresh
+
+ Favorites work across pagination
+
+ Favorite state correct on user detail page
+
+Theme Toggle
+ Theme toggle button visible
+
+ Icon changes (moon/sun)
+
+ Background colors change
+
+ Text colors change
+
+ Theme persists after refresh
+
+Error Handling
+ Displays error message on API failure
+
+ Loading spinner shows during fetch
+
+ Error UI is user-friendly
+
+🐛 Troubleshooting
+Common Issues
+Theme not changing
+Solution:
+
+Ensure @custom-variant dark (&:where(.dark, .dark *)); is in index.css
+
+Restart dev server after config changes
+
+Clear browser cache (Ctrl+Shift+R)
+
+API not loading
+Solution:
+
+Check network tab in DevTools
+
+Verify API endpoint is correct
+
+Check for CORS errors (shouldn't happen with ReqRes)
+
+Favorites not persisting
+Solution:
+
+Check browser localStorage is enabled
+
+Open DevTools > Application > Local Storage
+
+Verify 'favorites' key exists
+
+Routing not working
+Solution:
+
+Ensure react-router-dom is installed
+
+Check App.jsx has <Router> wrapper
+
+Verify routes are defined correctly
