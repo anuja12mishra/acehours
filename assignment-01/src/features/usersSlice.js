@@ -1,5 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchUsers } from '../api/usersApi';
+import {
+  createSlice,
+  createAsyncThunk
+} from '@reduxjs/toolkit';
+import {
+  fetchUsers
+} from '../api/usersApi';
 
 // Load favorites from localStorage
 const loadFavoritesFromStorage = () => {
@@ -23,6 +28,9 @@ const saveFavoritesToStorage = (favorites) => {
 
 export const fetchUsersThunk = createAsyncThunk(
   'users/fetchUsers',
+  // users/fetchUsers/pending
+  // users/fetchUsers/fulfilled
+  // users/fetchUsers/rejected
   async (page = 1, thunkAPI) => {
     try {
       const data = await fetchUsers(page);
@@ -43,7 +51,8 @@ const usersSlice = createSlice({
     loading: false,
     error: null,
     selectedUser: null,
-    favorites: loadFavoritesFromStorage(), // Load from localStorage
+    favorites: loadFavoritesFromStorage(),
+    search: "",
   },
   reducers: {
     selectUser(state, action) {
@@ -52,10 +61,13 @@ const usersSlice = createSlice({
     clearSelectedUser(state) {
       state.selectedUser = null;
     },
+    setSearch(state, action) {
+      state.search = action.payload;
+    },
     toggleFavorite(state, action) {
       const userId = action.payload;
       const index = state.favorites.indexOf(userId);
-      
+
       if (index > -1) {
         // Remove from favorites
         state.favorites.splice(index, 1);
@@ -63,7 +75,7 @@ const usersSlice = createSlice({
         // Add to favorites
         state.favorites.push(userId);
       }
-      
+
       // Save to localStorage
       saveFavoritesToStorage(state.favorites);
     },
@@ -87,6 +99,11 @@ const usersSlice = createSlice({
   }
 });
 
-export const { selectUser, clearSelectedUser, toggleFavorite } = usersSlice.actions;
+export const {
+  selectUser,
+  clearSelectedUser,
+  toggleFavorite,
+  setSearch 
+} = usersSlice.actions;
 
 export default usersSlice.reducer;
