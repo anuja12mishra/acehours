@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts, deleteProduct, setEditingProduct } from '../feature/products/productsSlice';
+import { fetchProducts, deleteProduct } from '../feature/products/productsSlice';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
 const ProductList = () => {
@@ -9,10 +9,6 @@ const ProductList = () => {
   const { list, loading, error, search, category, sortBy } = useSelector(
     (state) => state.products
   );
-
-  const handleEdit = (product) => {
-    navigate(`/edit/${product.id}`);
-  };
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -30,14 +26,14 @@ const ProductList = () => {
   });
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <p className="text-red-600">{error}</p>;
+  if (error) return <p className="text-red-600 text-center">{error}</p>;
 
   return (
     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {sorted.map((p) => (
         <div
           key={p.id}
-          className="bg-white shadow-md p-4 rounded-lg flex flex-col items-center"
+          className="bg-white shadow-md rounded-lg p-5 flex flex-col items-center hover:shadow-xl transition-shadow"
         >
           <img
             src={p.thumbnail}
@@ -45,23 +41,23 @@ const ProductList = () => {
             className="w-32 h-32 object-cover rounded mb-3"
           />
 
-          <h4 className="text-lg font-semibold">{p.title}</h4>
-          <p className="text-gray-700 font-medium">₹ {p.price}</p>
+          <h4 className="text-lg font-semibold text-gray-800 text-center mb-1">{p.title}</h4>
+          <p className="text-gray-900 font-bold text-xl">₹ {p.price}</p>
 
-          <p className={`text-sm font-semibold mt-1 ${p.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {p.stock > 0 ? 'In Stock' : 'Out of Stock'}
+          <p className={`text-sm font-semibold mt-2 ${p.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {p.stock > 0 ? `In Stock (${p.stock})` : 'Out of Stock'}
           </p>
 
           <div className="flex gap-3 mt-4">
             <button
-              onClick={() => handleEdit(p)}
-              className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+              onClick={() => navigate(`/edit/${p.id}`)}
+              className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 font-medium transition-colors"
             >
               Edit
             </button>
             <button
               onClick={() => dispatch(deleteProduct(p.id))}
-              className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 font-medium transition-colors"
             >
               Delete
             </button>
