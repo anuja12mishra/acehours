@@ -33,7 +33,7 @@ const ProductList = () => {
       {sorted.map((p) => (
         <div
           key={p.id}
-          className="bg-white shadow-md rounded-lg p-5 flex flex-col items-center hover:shadow-xl transition-shadow"
+          className="bg-white shadow-md rounded-lg p-5 flex flex-col items-center justify-between hover:shadow-xl transition-shadow"
         >
           <img
             src={p.thumbnail}
