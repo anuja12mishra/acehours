@@ -1,8 +1,6 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import {  createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Cloud, Search, MapPin, Droplets, Wind, Eye, Gauge, Clock, X } from 'lucide-react';
-
-const rapidApiKey = 'aa12c22f35msh1509b1a8262ac3bp17aef2jsn251e3b67603f';
+const rapidApiKey = import.meta.env.VITE_RAPID_API_KEY;
 
 // City search suggestions
 export const fetchCitySuggestions = createAsyncThunk(
@@ -43,7 +41,6 @@ export const fetchWeather = createAsyncThunk(
   }
 );
 
-// Weather Slice
 const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
@@ -86,7 +83,5 @@ const weatherSlice = createSlice({
   },
 });
 
-
 export const { clearSuggestions } = weatherSlice.actions;
-
 export default weatherSlice.reducer;

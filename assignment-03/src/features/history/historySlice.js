@@ -20,5 +20,4 @@ const historySlice = createSlice({
 
 export const { addCityToHistory, clearHistory } = historySlice.actions;
 
-// ✅ IMPORTANT: Add this default export
 export default historySlice.reducer;
