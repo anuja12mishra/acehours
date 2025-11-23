@@ -18,10 +18,6 @@ function App() {
           <WeatherDisplay />
           <SearchHistory />
         </div>
-
-        <footer className="text-center mt-16 text-sm text-gray-500">
-          <p>Powered by RapidAPI Weather Service</p>
-        </footer>
       </div>
     </div>
   );
